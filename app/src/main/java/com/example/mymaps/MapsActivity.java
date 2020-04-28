@@ -1,0 +1,97 @@
+package com.example.mymaps;
+
+import androidx.fragment.app.FragmentActivity;
+
+import android.os.Bundle;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+
+    private GoogleMap mMap;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_maps);
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+    }
+
+
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
+
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        //   Mengambil data yang dikirim dari layer tadi
+        Bundle extras = getIntent().getExtras();
+        String value = extras.getString("key");
+
+
+
+        //   If else berdasar parameter yang dikirim.
+        if (value.equalsIgnoreCase("spbu")){
+
+            LatLng spbu1 = new LatLng(-7.983166, 112.614609);
+            mMap.addMarker(new MarkerOptions().position(spbu1).title("SPBU Mergan"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(spbu1));
+
+            LatLng spbu2 = new LatLng(-7.995420, 112.619780);
+            mMap.addMarker(new MarkerOptions().position(spbu2).title("SPBU Sukun"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(spbu2));
+
+            LatLng spbu3 = new LatLng(-7.978953, 112.63480);
+            mMap.addMarker(new MarkerOptions().position(spbu3).title("SPBU Trunojoyo"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(spbu3));
+
+            LatLng spbu4 = new LatLng(-7.985073, 112.626594);
+            mMap.addMarker(new MarkerOptions().position(spbu4).title("SPBU Kasin"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(spbu4));
+
+            LatLng latLng = new LatLng(-7.985073, 112.626594);
+            float zoomLevel = 14.0f; //This goes up to 21
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
+
+        } else if (value.equalsIgnoreCase("universitas")){
+
+
+            LatLng univ1 = new LatLng(-7.952615, 112.613907);
+            mMap.addMarker(new MarkerOptions().position(univ1).title("Universitas Brawijaya"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(univ1));
+
+            LatLng pom2 = new LatLng(-7.972467, 112.609535);
+            mMap.addMarker(new MarkerOptions().position(pom2).title("Universitas Merdeka"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(pom2));
+
+            LatLng pom3 = new LatLng(-7.961273, 112.617393);
+            mMap.addMarker(new MarkerOptions().position(pom3).title("Universitas Negri Malang"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(pom3));
+
+
+            //   Objek ini khusus untuk lokasi user dan zoom levelnya
+            LatLng latLng = new LatLng(-7.961273, 112.617393);
+            float zoomLevel = 14.0f; //This goes up to 21
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
+
+        }
+
+    }
+}
